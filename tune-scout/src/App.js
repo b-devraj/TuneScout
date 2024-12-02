@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
-// Test
-function App() {
+import InputField from './InputField';
+import GenreDropdown from './GenreDropdown';
+import Recommendations from './Recommendations';
+
+const App = () => {
+  const [songUrl, setSongUrl] = useState('');
+  const [genre, setGenre] = useState('');
+  const [recommendations, setRecommendations] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="container">
+      <h1 className="title">TuneScout</h1>
+      <div className="form">
+        <input
+          type="text"
+          placeholder="Enter Spotify song link"
+          value={songUrl}
+          onChange={(e) => setSongUrl(e.target.value)}
+          className="input"
+        />
+        <select
+          onChange={(e) => setGenre(e.target.value)}
+          value={genre}
+          className="select"
         >
-          Learn React
-        </a>
-      </header>
+          <option value="">Select Genre</option>
+          <option value="pop">Pop</option>
+          <option value="rock">Rock</option>
+          <option value="jazz">Jazz</option>
+        </select>
+        <button className="button">
+          Submit
+        </button>
+      </div>
+      <ul className="recommendations">
+        {recommendations.map((rec, index) => (
+          <li key={index} className="list-item">
+            {rec.name} by {rec.artist}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
